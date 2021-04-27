@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata Diri</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">Portofolio</a>
+        <div class="toogle">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Works</a></li>
+                <li><a href="#">Contacts</a></li>
+            </ul>
+
+        </div>
+    </header>
+    <section class="banner">
+        <div class="textBox">
+            <h2>Hi. I am <br> <span>Muhamad Biki Hamzah.</span></h2>
+            <h3>I am Human </h3>
+            <a href="" class="btn">About Me</a>
+        </div>
+    </section>
+    <section class="about">
+        <div class="heading">
+            <h2>About Me</h2>
+        </div>
+        <div class="content">
+            <div class="contentBox w50">
+                <h3>Hi, I am Human</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Reprehenderit, et impedit. Obcaecati voluptate eligendi 
+                    consectetur consequuntur facere modi aspernatur velit nisi quidem animi 
+                    omnis aperiam totam eius mollitia dolorum minus reprehenderit magnam amet, beatae vitae
+                    labore! Corporis harum corrupti exercitationem sit rerum enim ab, nulla ea et iure! Aliquid, 
+                    debitis omnis. Quis facilis impedit sed dignissimos quas dolores totam tenetur, voluptates expedita <br><br>
+                    Inventore enim voluptate veniam earum deserunt voluptatibus odio eligendi eum nulla repellendus quam quia
+                    assumenda ab optio voluptas. Vitae sapiente voluptatibus nihil quibusdam excepturi officiis esse dolorum debitis
+                    facere, blanditiis quis adipisci, inventore iusto nulla quisquam explicabo nemo!
+                </p>
+            </div>
+            <div class="w50">
+                <img src="/image/orang.jpg" alt="" class="img center">
+            </div>
+        </div>
+    </section>
+    <section class="services">
+        <div class="heading white">
+            <h2>Our Service</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia, mollitia?</p>
+        </div>
+        <div class="content">
+            <div class="serviceBox">
+                <img src="/image/icon1.png" alt="Web Design" srcset="">
+                <h2>Web Design</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="serviceBox">
+                <img src="/image/icon2.png" alt="Web Dev" srcset="">
+                <h2>Web Development</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="serviceBox">
+                <img src="image/icon3.png" alt="Android Dev" srcset="">
+                <h2>Android Development</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        window.addEventListener('scroll', function(){
+            var header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+    </script>
+</body>
+</html>

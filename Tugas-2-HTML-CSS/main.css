@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin:0;
+    padding: 0; 
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.banner{
+    position: relative;
+    min-height: 100vh;
+    background: url('/image/black.jpeg');
+    background-size: cover;
+    /* background-position: right; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section{
+    padding: 100px;
+}
+.banner h2{
+    font-size: 3em;
+    color: white;
+    font-weight: 500;
+    line-height: 1.5em;
+}
+.banner h2 span {
+    color: white;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+.banner h3 {
+    font-size: 1.5em;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.btn { 
+    position: relative;
+    background: #2196f5;
+    color: white;
+    padding: 10px 30px;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 40px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.5s;
+}
+
+header.sticky{
+    background: white;
+    padding: 20px 100px;
+    box-shadow: 0.5px 20px rgba(0, 0, 0, 0.1);
+}
+header.sticky .logo{
+    color: black;
+}
+header.sticky ul li a{
+    color: black;
+}
+
+header .logo{
+    color: white;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+header ul {
+    position: relative;
+    display: flex;
+}
+header ul li{
+    position: relative;
+    list-style-type: none;
+}
+header ul li a{
+    position: relative;
+    display: inline-block;
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+}
+.heading {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    color: black;
+}
+.heading h2 {
+    font-weight: 700;
+    font-size: 32px;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+.contentBox{
+    padding-right  : 30px;
+}
+.contentBox h3{
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.w50{
+    min-width: 50%;
+}
+.img{
+    max-width: 100%;
+}
+.center{
+    margin: auto;
+}
+.services{
+    background: black;
+}
+.heading.white{
+    color:white;
+}
+.services .content{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.services .content .serviceBox{
+    color: white;
+    background: #222;
+    max-width: 340px;
+    margin: 20px;
+    text-align: center;
+    transition: 0.5s;
+    padding: 40px 20px;
+}
+.services .content .serviceBox:hover{
+    background: #2196f3;
+}
