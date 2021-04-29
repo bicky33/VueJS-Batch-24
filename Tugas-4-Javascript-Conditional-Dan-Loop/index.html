@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //soal 1
+        let nilai = 10; 
+
+        if (nilai >= 85) {
+        console.log("A")
+        } else if(nilai >= 75 && nilai < 85){
+        console.log("B")
+        } else if(nilai >= 65 && nilai < 75){
+        console.log("C")
+        } else if(nilai >= 55 && nilai < 65){
+        console.log("D")
+        } else if(nilai < 55){
+        console.log("E")
+        }
+
+        //soal 2
+        let tanggal = 4 
+        let bulan = 1 
+        let tahun = 1999
+
+        switch(bulan){
+        case 1: {
+            console.log(tanggal.toString()+" Januari "+ tahun.toString());
+            break;
+        }
+        case 2: {
+            console.log(tanggal.toString()+" Februari "+ tahun.toString());
+            break;
+        }
+        case 3: {
+            console.log(tanggal.toString()+" Maret "+ tahun.toString());
+            break;
+        }
+        case 4: {
+            console.log(tanggal.toString()+" April "+ tahun.toString());
+            break;
+        }
+        case 5: {
+            console.log(tanggal.toString()+" Mei "+ tahun.toString());
+            break;
+        }
+        case 6: {
+            console.log(tanggal.toString()+" Juni "+ tahun.toString());
+            break;
+        }
+        case 7: {
+            console.log(tanggal.toString()+" Juli "+ tahun.toString());
+            break;
+        }
+        case 8: {
+            console.log(tanggal.toString()+" Agustus "+ tahun.toString());
+            break;
+        }
+        case 9: {
+            console.log(tanggal.toString()+" September "+ tahun.toString());
+            break;
+        }
+        case 10: {
+            console.log(tanggal.toString()+" Oktober "+ tahun.toString());
+            break;
+        }
+        case 11: {
+            console.log(tanggal.toString()+" November "+ tahun.toString());
+            break;
+        }
+        case 12: {
+            console.log(tanggal.toString()+" Desember "+ tahun.toString());
+            break;
+        }
+        default:{
+            console.log("bulan tida tersedia")
+            break;
+        }
+
+        }
+
+        //soal 3
+        var n = 3
+        var symbol = ''
+        for(let i=0; i<n; i++){
+            symbol +=  '#'   
+        console.log(symbol)
+        }
+
+        //soal 4 
+        var m = 10
+        for(let i = 1; i<=m; i++){
+            if(i%3==0) {
+            console.log(i+" - I love VueJs \n"+ "=".repeat(i))
+        } else if(i%3==1){
+            console.log(i+" - I love programming")
+        } else if(i%3==2){
+            console.log(i+" - I love Javascript")
+        }
+        }
+
+        
+    </script>
+</body>
+</html>
