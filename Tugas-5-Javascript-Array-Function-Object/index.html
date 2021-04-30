@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5</title>
+</head>
+<body>
+    <script type="text/javascript">
+    //soal 1 
+    var daftarHewan = ["2. Komodo", "5. Buaya", "3. Cicak", "4. Ular", "1. Tokek"];
+    var length = daftarHewan.length
+
+    for(let i = 0; i<length; i++) {
+    for(let j = 0; j<length-1; j++ ) {
+        let comp1 = parseInt(daftarHewan[j].charAt(0));
+        let comp2 = parseInt(daftarHewan[j+1].charAt(0));
+        if(comp1 > comp2) {
+            let temp = daftarHewan[j];
+        daftarHewan[j] = daftarHewan[j+1];
+        daftarHewan[j+1] = temp 
+        }
+    }
+    } 
+    console.log(daftarHewan)
+
+    //soal 2
+    var data = {name : "John" , age : 30 , address : "Jalan Pelesiran" , hobby : "Gaming" }
+    function introduce(data){
+        let name = data.name; 
+    let age = data.age;
+    let address = data.address; 
+    let hobby = data.hobby;
+    
+    return `Nama saya ${name}, umur saya ${age} tahun, alamat saya di ${address}, dan saya punya hobby yaitu ${hobby}`
+    }
+
+    console.log(introduce(data))
+
+    //soal 3 
+    function hitung_huruf_vokal(data){
+        return data.match(/[aiueo]/gi) || [].length
+    }
+    console.log(hitung_huruf_vokal("kkkk"))
+    
+    //soal 4 
+    function hitung(data){
+    let random = Math.floor(Math.random() * 100) + 1;
+        return random + data
+    }
+
+    console.log(hitung(1))
+    </script>
+</body>
+</html>
