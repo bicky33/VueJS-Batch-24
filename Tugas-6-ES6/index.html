@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas-6 ES</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //soal 1 
+        const luas = (a,b) => { return a*b };
+        let keliling = (a,b) => 2*a+2*b; 
+
+        console.log(luas(4,6))
+        console.log(keliling(2,2))
+        //soal 2 
+        const newFunction = (firstName, lastName) => {
+            return {
+                firstName,
+                lastName, 
+                fullName: `${firstName} ${lastName}`
+            }
+        };
+
+        console.log(newFunction("foo", "bar").fullName)
+        //soal 3 
+        const newObject = {
+            firstName: "Muhammad",
+            lastName: "Iqbal Mubarok",
+            address: "Jalan Ranamanyar",
+            hobby: "playing football",
+        }
+
+        const {firstName, lastName, address, hobby} = newObject
+        console.log(firstName, lastName, address, hobby)
+        //soal 4 
+        const west = ["Will", "Chris", "Sam", "Holly"]
+        const east = ["Gill", "Brian", "Noel", "Maggie"]
+
+        const combine = [...west, ...east]
+        console.log(combine)
+        //soal 5 
+        const planet = "earth" 
+        const view = "glass" 
+        var before = `Lorem ${view} dolor sit amet consectetur adipiscing elit ${planet}`;
+        console.log(before)
+        
+    </script>
+</body>
+</html>
