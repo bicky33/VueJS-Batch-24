@@ -7,9 +7,22 @@ var books = [
     {name: 'komik', timeSpent: 1000}
 ]
 
-function log(sisaWaktu) {
-    return console.log(sisaWaktu);
+function show(){
+    let time = 10000
+    readBooks(time, books[0], ()=>{
+        time = time - books[0].timeSpent
+        readBooks(time, books[1], ()=>{
+            time = time - books[1].timeSpent
+            readBooks(time, books[2], ()=>{
+                time = time - books[2].timeSpent
+                readBooks(time, books[3], ()=>{
+                    time = time - books[3].timeSpent
+                    readBooks(time, books[0], ()=>{
+                    })
+                })
+            })  
+        })
+    });
+};
 
-}
-
-console.log(books.forEach( book=> readBooks(10000, book, log) ));
+show();
