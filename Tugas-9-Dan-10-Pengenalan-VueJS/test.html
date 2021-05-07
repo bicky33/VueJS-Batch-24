@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+          <post v-for="post in posts" :post="post"></post>
+        </ul>
+      </div>
+      
+      <template id="post-template">
+        <li>
+          <button @click="upvote" :class="{upvoted: upvoted}">&uarr;</button>
+          <span class="votes">{{ votes }}</span>
+          <button @click="downvote" :class="{downvoted: downvoted}">&darr;</button>
+          <a href="#">{{ post.title }}</a>
+        </li>
+      </template>
+
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+      <script>
+          Vue.component('post', {
+            template: '#post-template',
+            props: ['post'],
+            data: function() {
+                return {
+                upvoted: false,
+                downvoted: false
+                }
+            },
+            methods: {
+                upvote: function() {
+                this.upvoted = !this.upvoted;
+                this.downvoted = false;
+                },
+                downvote: function() {
+                this.downvoted = !this.downvoted;
+                this.upvoted = false;
+                }
+            },
+            computed: {
+                votes: function() {
+                if (this.upvoted) {
+                    return this.post.votes + 1;
+                } else if (this.downvoted) {
+                    return this.post.votes - 1;
+                } else {
+                    return this.post.votes;
+                }
+                }
+            }
+            });
+
+            var vm = new Vue({
+            el: "#app",
+            data: {
+                posts: [
+                {
+                    title: "A post title",
+                    votes: 15
+                },
+                {
+                    title: "Another post title",
+                    votes: 53
+                },
+                {
+                    title: "A third post title",
+                    votes: 10
+                }
+                ]
+            }
+            });
+
+      </script>
+</body>
+</html>

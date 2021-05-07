@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <comment v-for="comment in comments" :comment="comment"></comment>
+        <div>
+            <textarea  @keyup.enter="submitComments" v-model="inputComments"cols="30" rows="10">
+
+            </textarea>
+        </div>
+    </div>
+    <template id="comment-template">
+        <div style="margin: 20px 20px">
+            <button @click="upvote" :class="{upvoted: upvoted}"> + </button>
+            <div>
+                {{ comment.komen }} || {{ comment.tanggal }} || Score: {{ votes }}
+            </div>
+            <button @click="downvote" :class="{downvoted: downvoted}"> - </button>
+        </div>
+       
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+    <script>
+        Vue.component('comment', {
+            template: '#comment-template',
+            props: ['comment'],
+            data: function() {
+                return {
+                upvoted: false,
+                downvoted: false
+                }
+            },
+            methods: {
+                upvote: function() {
+                this.upvoted = !this.upvoted;
+                this.downvoted = false;
+                },
+                downvote: function() {
+                this.downvoted = !this.downvoted;
+                this.upvoted = false;
+                }
+            },
+            computed: {
+                votes: function() {
+                if (this.upvoted) {
+                    console.log(this.comment)
+                    return this.comment.score + 1;
+                } else if (this.downvoted) {
+                    return this.comment.score - 1;
+                } else {
+                    return this.comment.score;
+                }
+                }
+            }
+        });
+        var vm = new Vue({
+            el: '#app', 
+            data: {
+                comments: [
+                    {
+                        komen: "First", 
+                        score: 5, 
+                        tanggal: '20-05-2021'
+                    },
+                    {
+                        komen: "Second", 
+                        score: 4, 
+                        tanggal: '20-05-2021'
+                    },
+                    {
+                        komen: "Third", 
+                        score: 3, 
+                        tanggal: '20-05-2021'
+                    },
+                ], 
+                inputComments: '',
+            }, 
+            methods: {
+                submitComments: function(){
+                    let input = {};
+                    let today = new Date()
+                    let hari = today.getDate()
+                    let bulan = today.getMonth()+1
+                    let tahun = today.getFullYear()
+                    input.tanggal = `${hari}-${bulan}-${tahun}`;
+                    input.komen = this.inputComments;
+                    input.score = 0
+                    this.comments.push(input);
+                    this.inputComments = '';
+                    return this.comments
+                }
+            }
+        })
+
+
+
+    </script>
+</body>
+</html>
