@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <input type="text" v-model="inputText"> 
+            <button @click="submitForm"> Add </button>
+        </div>
+        <ul>
+            <crud v-for="(name, index) in names" :name="name" :key="index"></crud>
+        </ul>
+    </div>
+    <template id="crud-template">
+        <div>
+            <li style="margin: 10px 0">
+                {{ name.name }}
+                 <button>Edit</button>
+                 ||
+                 <button @click="deleteName(index)">Delete</button>
+            </li>
+            
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        Vue.component('crud',{
+            template: '#crud-template',
+            props: ['name'],
+            data:function() {
+                return {
+                    
+                }
+            }, 
+            method: {
+                deleteName:function(index){
+                    const confirmation = confirm("Apakah anda yakin?")
+                    return  this.$delete(this.name, index)
+                },
+            },
+            computed:{
+                edit: function(){
+
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                names: [
+                    { name: 'Alex' }, 
+                    { name: 'Bei' },
+                    { name: 'Opsi' },  
+                ],
+                inputText: '',
+            }, 
+            methods: {
+                submitForm: function() {
+                    this.names.push( { name: this.inputText })
+                    this.inputText = ''
+                    return this.names;
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
