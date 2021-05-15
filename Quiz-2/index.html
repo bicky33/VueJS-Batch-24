@@ -10,19 +10,20 @@
     <div id="app">
         <div>
             <input type="text" v-model="inputText"> 
-            <button @click="submitForm"> Add </button>
+            <button @click="submitForm" v-show="!updateSubmit"> Add </button>
+            <button @click="updateName" v-show="updateSubmit"> Update </button>
         </div>
         <ul>
-            <crud v-for="(name, index) in names" :name="name" :key="index"></crud>
+            <crud v-for="(name, index) in names" :name="name" :key="index" :index="index" @delete="removechild"></crud>
         </ul>
     </div>
     <template id="crud-template">
         <div>
             <li style="margin: 10px 0">
                 {{ name.name }}
-                 <button>Edit</button>
+                 <button @click="update">Edit</button>
                  ||
-                 <button @click="deleteName(index)">Delete</button>
+                 <button @click="deleteName">Delete</button>
             </li>
             
         </div>
@@ -31,23 +32,23 @@
     <script>
         Vue.component('crud',{
             template: '#crud-template',
-            props: ['name'],
+            props: ['name', 'index'],
             data:function() {
                 return {
                     
                 }
             }, 
-            method: {
-                deleteName:function(index){
-                    const confirmation = confirm("Apakah anda yakin?")
-                    return  this.$delete(this.name, index)
+            methods: {
+                deleteName:function() {
+                    const confirmation = confirm("Yakin melakukan ini?")
+                    return confirmation ? this.$emit("delete", this.name) : '' 
                 },
-            },
-            computed:{
-                edit: function(){
-
+                update(){
+                    this.$root.updateSubmit = true 
+                    this.$root.inputText = this.name.name
+                    this.$root.indexUpdate = this.index
                 }
-            }
+            },
         })
         var vm = new Vue({
             el: '#app',
@@ -58,14 +59,23 @@
                     { name: 'Opsi' },  
                 ],
                 inputText: '',
+                updateSubmit: false,
+                indexUpdate: 0,
             }, 
             methods: {
                 submitForm: function() {
                     this.names.push( { name: this.inputText })
                     this.inputText = ''
-                    return this.names;
+                }, 
+                removechild(name){
+                    this.names = this.names.filter((item)=>{ return item.name != name.name });
+                }, 
+                updateName:function(){
+                    this.names[this.indexUpdate].name = this.inputText 
+                    this.inputText = ''
                 }
-            }
+            }, 
+
 
         })
     </script>
