@@ -39,7 +39,7 @@
             </textarea>
             <input type="submit" value="Submit" v-show="!buttonStatus" @click="submitForm" :disabled="uploadStatus">
             <input type="submit" value="Update" @click.prevent="updateMember" v-show="buttonStatus" :disabled="uploadStatus">
-            <input type="file"  ref="photo" v-show="uploadStatus" >
+            <input type="file"  ref="photo" v-show="uploadStatus" name="photo"@change="handleFileUpload">
             <input type="submit" value="Upload" @click.prevent="uploadPhotoMember " v-show="uploadStatus">
             <input type="submit" value="Cancel"  @click="clearForm" v-show="updateMember || buttonStatus">
         </form>
@@ -48,7 +48,7 @@
         <table border="1">
             <tr v-for="member in members">
                 <td>
-                    <img src="https://dummyimage.com/150x100/000000/fff.png&text=dummy" alt="">
+                    <img :src=" member.photo_profile ? member.photo_profile :  'https://dummyimage.com/150x100/000000/fff.png&text=dummy'" alt="">
                 </td>
                 <td>
                     <b>Name: {{ member.name }}</b> <br>
@@ -79,7 +79,7 @@
                 buttonStatus: false,
                 idMember: null,
                 uploadStatus: false,
-                pathUpload: '',
+                pathUpload: null,
             },
             methods: {
                 validtForm() {     
@@ -146,19 +146,19 @@
                     this.idMember = null
                 }, 
                 uploadPhotoMember(){
-                    const path = this.$refs.photo.files[0]
-                    console.log(path);
+                    let form = new FormData()
+                    form.append('photo_profile', this.pathUpload)
+
                     const config = {
                         method: 'POST',
                         url: `http://demo-api-vue.sanbercloud.com/api/member/${this.idMember}/upload-photo-profile`,
-                        data:{
-                            photo_profile: path
-                        }
+                        data:form
                     }
 
                     axios(config)
                         .then(response => this.getMembers())
                             .catch(error => console.log(error))
+                    this.clearForm()
                 },
                 updateMember(){
                     const config = {
@@ -197,6 +197,9 @@
                     axios(config)
                         .then(response => this.getMembers())
                             .catch(error => console.log(error))
+                },
+                handleFileUpload(){
+                    this.pathUpload = this.$refs.photo.files[0];
                 }
             }, 
             created(){
