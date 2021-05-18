@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div" id="app">
+        <div>
+            <input type="text" v-model="inputText">
+            <button @click="submitName" v-show="!updateSubmit">Add</button>
+            <button @click="updateName" v-show="updateSubmit">Update</button>
+        </div>
+        <ul>
+            <li v-for="name in nameList"  :key="name.name" style="margin: 10px 5px;">
+                {{  name.name }}
+                || <button @click="updateButton(name.name)">Edit</button> || 
+                <button @click="deleteName(name.name)">Delete</button>
+            </li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app', 
+            data: {
+                nameList: [
+                    { name: 'Alex' },
+                    { name: 'Olek' }, 
+                    { name: 'Elo' },
+                ],
+                inputText: '', 
+                updateSubmit: false, 
+                updateIndex: '',
+            },
+            methods: {
+                submitName: function(){
+                    this.nameList.push({ name: this.inputText })
+                    this.inputText = ''
+                }, 
+                deleteName: function(name){
+                    const index = this.nameList.findIndex(el => { return el.name === name })
+                    this.nameList.splice(index, 1)
+                }, 
+                updateButton: function(name) {
+                    this.updateSubmit = true 
+                    this.inputText = name
+                    const index = this.nameList.findIndex(el => { return el.name === name })
+                    this.updateIndex = index
+                }, 
+                updateName(){
+                    this.nameList[this.updateIndex].name = this.inputText
+                    this.inputText = ''
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>
