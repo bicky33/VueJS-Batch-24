@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+            background-color: antiquewhite;
+            width: 255px;
+        }
+        label {
+            display: block;
+            margin-top: 5px;
+        }
+        input, textarea {
+            min-width: 200px;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="div" id="app">
+        <form>
+            <p v-if="$store.state.errors.length">
+                <b>Please corrects following erros: </b>
+                <ul>
+                    <li v-for="error in $store.state.errors">{{ error }}</li>
+                </ul>
+            </p>
+            <label for="name">name: </label>
+            <input type="text" name="name" v-model="name" ref="name" :disabled="uploadStatus">
+            <label for="name">Phone: </label>
+            <input type="number" name="name" v-model="phone" ref="phone" :disabled="uploadStatus">
+            <label for="address">address:</label>
+            <textarea name="address" v-model="address" ref="address" :disabled="uploadStatus">
+            </textarea>
+            <input type="submit" value="Submit" v-show="!buttonStatus" @click.prevent="submitForm" :disabled="uploadStatus">
+            <input type="submit" value="Update" @click.prevent="updateMember" v-show="buttonStatus" :disabled="uploadStatus">
+            <input type="file"  ref="photo" v-show="uploadStatus" name="photo"@change="handleFileUpload">
+            <input type="submit" value="Upload" @click.prevent="uploadPhotoMember " v-show="uploadStatus">
+            <input type="submit" value="Cancel"  @click="clearForm" v-show="updateMember || buttonStatus">
+        </form>
+        <br>
+        <br>
+        <table border="1">
+            <tr  is="member-component" v-for="member in $store.state.members" :member="member" :key="member.id" ></tr>
+        </table>
+    </div>
+    <template id="memberComponent">
+        <tr>
+            <td>
+                <img :src=" member.photo_profile ? 'http://demo-api-vue.sanbercloud.com/' + member.photo_profile :  'https://dummyimage.com/150x100/000000/fff.png&text=dummy'" alt="" height="100px" width="150">
+            </td>
+            <td>
+                <b>Name: {{ member.name }}</b> <br>
+                <b>Phone: {{ member.no_hp }}</b> <br>
+                <b>Address: {{ member.address }}</b> <br>
+            </td>
+            <td>
+                <button @click="edit(member)">Update</button>
+                <button @click="deleteMember(member.id)">Delete</button>
+                <button @click="upload(member)">Upload</button>
+            </td>
+        </tr>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.6.2/dist/vuex.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module">
+        import { store } from './store.js'
+
+        Vue.component('MemberComponent', {
+        template: '#memberComponent',
+        props: ['member'],
+        methods: {
+            deleteMember(id) {
+               this.$store.dispatch('deleteMember', id)
+            },
+            edit(data){
+                this.$store.commit('updatedEditMember', data)
+            },
+            upload(data){
+                this.$store.commit('updatedUpload', data)
+            }
+        }
+            
+        })
+        var vm = new Vue({
+            el: "#app", 
+            store,
+            methods: {
+                validtForm() {     
+
+                    if(store.state.name.length < 5) {
+                        this.$refs.name.focus()
+                        store.state.errors.push("jumlah karakter name harus lebih dari 5")
+                    }
+                    if(!store.state.address.length) {
+                        this.$refs.address.focus()
+                        store.state.errors.push("address harus diisi")
+                    }
+
+                    if(!store.state.phone.length){
+                        this.$refs.phone.focus()
+                        store.state.errors.push("isi nomer Hp anda")
+                    }
+                },
+                submitForm(){
+                    this.validtForm()
+                    const newData = new FormData()
+                    newData.append("name", store.state.name)
+                    newData.append("address", store.state.address)
+                    newData.append("no_hp", store.state.phone)
+                    this.postMembers(newData)
+                },
+                clearForm(){
+                    this.$store.commit('clearForm')
+                },
+                postMembers(newData){
+                    this.$store.dispatch('postMember' , newData)
+                }, 
+                uploadPhotoMember(){
+                    this.$store.dispatch('uploadPhotoMember')
+                },
+                updateMember(){
+                    this.$store.dispatch('updateMember')
+                },
+                uploadPhoto(data){
+                    this.$store.commit('updatedUpload', data)
+                },
+                handleFileUpload(){
+                    store.commit('handleFileUpload', this.$refs.photo.files[0])
+                }
+            }, 
+            created(){
+                this.$store.dispatch('getMembers')
+            },
+            computed: {
+                name: {
+                    get(){
+                        return this.$store.state.name
+                    }, 
+                    set(value){
+                        this.$store.commit('updatedName', value)
+                    }
+                },
+                phone: {
+                    get(){
+                        return this.$store.state.phone
+                    }, 
+                    set(value){
+                        this.$store.commit('updatedPhone', value)
+                    }
+                },
+                address: {
+                    get(){
+                        return this.$store.state.address
+                    }, 
+                    set(value){
+                        this.$store.commit('updatedAddress', value)
+                    }
+                },
+                uploadStatus:{
+                    get(){
+                        return this.$store.state.uploadStatus
+                    }, 
+                },
+                buttonStatus: {
+                    get(){
+                        return this.$store.state.buttonStatus
+                    }, 
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
