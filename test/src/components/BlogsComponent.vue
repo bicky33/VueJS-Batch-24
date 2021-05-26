@@ -1,0 +1,29 @@
+<template>
+  <v-flex xs6>
+    <v-card :to="`/blog/${blog.id}`">
+      <v-img :src="blog.photo? apiDomain + blog.photo : 'https://picsum.photos/200/300'" 
+      class="white--text" height="200">
+        <v-card-title class="fill-height align-end"
+            v-text="blog.title">
+        </v-card-title>
+      </v-img>
+      <v-card-actions>
+          <v-progress-linear color="grey" heigh="7"> 
+          </v-progress-linear>
+      </v-card-actions>
+      <v-card-actions>
+          <span>{{ blog.title.substring(0,15) }} .....</span>
+      </v-card-actions>
+    </v-card>
+  </v-flex>
+
+</template>
+<script>
+export default {
+    name: 'BlogsComponent',
+    props: ['blog'], 
+    data: () => ({
+      apiDomain : 'https://demo-api-vue.sanbercloud.com/',
+    })
+}
+</script>
